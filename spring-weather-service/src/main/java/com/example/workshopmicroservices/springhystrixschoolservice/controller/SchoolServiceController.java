@@ -61,9 +61,9 @@ public class SchoolServiceController {
     @RequestMapping(value = "/getCityByCountry/{country}", method = RequestMethod.GET)
     public String getCityByCountry(@PathVariable String country){
         ArrayList<City> l = new ArrayList<City>();
-        for(String ville : cityBD.keySet()){
-                if(ville.equals(country)){
-                    l = cityBD.get(ville);
+        for(String pays : cityBD.keySet()){
+                if(pays.equals(country)){
+                    l = cityBD.get(pays);
                 }
         }
         if(l.isEmpty()){
@@ -77,5 +77,4 @@ public class SchoolServiceController {
             return s;
         }
     }
-
 }
