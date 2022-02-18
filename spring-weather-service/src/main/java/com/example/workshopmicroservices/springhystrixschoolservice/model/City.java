@@ -1,9 +1,16 @@
 package com.example.workshopmicroservices.springhystrixschoolservice.model;
 
+import io.swagger.annotations.ApiModelProperty;
+
 public class City {
 
+    @ApiModelProperty
     private String name;
+
+    @ApiModelProperty
     private String zipcode;
+
+    @ApiModelProperty
     private String weather;
 
     public City(String name, String zipcode, String weather) {
