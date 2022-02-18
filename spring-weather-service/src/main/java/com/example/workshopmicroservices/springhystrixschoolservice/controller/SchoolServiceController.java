@@ -5,6 +5,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,6 +19,9 @@ import java.util.Map;
 @Api
 @RestController
 public class SchoolServiceController {
+
+    @Autowired
+    Environment environment;
 
     // initialisation de la liste de ville
     private Map<String, ArrayList<City>> cityBD = new HashMap<String, ArrayList<City>>(){
@@ -51,11 +56,11 @@ public class SchoolServiceController {
         for(String country : cityBD.keySet()){
             for(City city : cityBD.get(country)){
                 if(city.getName().equals(cityname)){
-                    return "Météo pour la ville "+cityname+" : "+city.getWeather();
+                    return "Météo pour la ville "+cityname+" : "+city.getWeather()+" on port :"+environment.getProperty("local.server.port");
                 }
             }
         }
-        return "No city found";
+        return "No city found on port :"+environment.getProperty("local.server.port");
     }
 
     // recherche de la météo par zipcode de la ville
@@ -65,11 +70,11 @@ public class SchoolServiceController {
         for(String country : cityBD.keySet()){
             for(City city : cityBD.get(country)){
                 if(city.getZipcode().equals(cityzipcode)){
-                    return "Météo pour la ville "+cityzipcode+" : "+city.getWeather();
+                    return "Météo pour la ville "+cityzipcode+" : "+city.getWeather()+" on port :"+environment.getProperty("local.server.port");
                 }
             }
         }
-        return "No city Found";
+        return "No city Found on port :"+environment.getProperty("local.server.port");
     }
 
     // recherche de la météo par nom du pays
@@ -84,14 +89,14 @@ public class SchoolServiceController {
                 }
         }
         if(l.isEmpty()){
-            return "No country Found";
+            return "No country Found on port :"+environment.getProperty("local.server.port");
         }
         else{
             String s = "Météo dans le pays "+country+" : \n";
             for(City c : l){
                 s+= c.getName()+", météo : "+c.getWeather()+"\n";
             }
-            return s;
+            return s+" on port :"+environment.getProperty("local.server.port");
         }
     }
 }
